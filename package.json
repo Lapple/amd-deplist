@@ -1,0 +1,14 @@
+{
+  "name": "amd-deplist",
+  "version": "1.0.0",
+  "description": "Output AMD dependencies list for a given module",
+  "main": "index.js",
+  "bin": "bin/trace",
+  "author": "Aziz Yuldoshev",
+  "license": "MIT",
+  "dependencies": {
+    "amodro-trace": "0.0.2",
+    "commander": "2.8.0",
+    "lodash": "3.7.0"
+  }
+}

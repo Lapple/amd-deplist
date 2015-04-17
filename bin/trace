@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var trace = require('..');
+
+program
+    .version(require('../package').version)
+    .option('-n, --namespace', 'Namespace')
+    .parse(process.argv);
+
+trace(
+    program.args[0],
+    { namespace: program.namespace });
