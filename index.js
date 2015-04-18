@@ -5,16 +5,23 @@ var _ = require('lodash');
 var amodroTrace = require('amodro-trace');
 var cjsTransform = require('amodro-trace/read/cjs');
 
-function trace(id, options) {
+var removeNamespace = require('./remove-namespace');
+var moduleId = require('./module-id');
+
+function trace(file, options) {
     var root = options.rootdir;
     var paths = options.paths;
 
     amodroTrace(
         {
             rootDir: root,
-            id: path.relative(root, id),
+            id: moduleId(file, root),
             readTransform: function(id, url, contents) {
-                return cjsTransform(url, contents);
+                return cjsTransform(
+                    url,
+                    removeNamespace(
+                        options.ns,
+                        contents));
             }
         },
         {
