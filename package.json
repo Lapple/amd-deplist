@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "amodro-trace": "0.0.2",
+    "bluebird": "2.9.24",
     "commander": "2.8.0",
     "lodash": "3.7.0"
   }

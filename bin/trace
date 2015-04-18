@@ -5,14 +5,14 @@ var trace = require('..');
 
 program
     .version(require('../package').version)
-    .usage('[options] <file>')
+    .usage('[options] <files..>')
     .option('-r, --rootdir [dir]', 'rootdir [cwd]', process.cwd())
     .option('-p, --path [pair]', 'path alias, can be repeated', mergePaths, {})
     .option('-n, --namespaced [ns]', 'parse namespaced definitions', null)
     .parse(process.argv);
 
 trace(
-    program.args[0],
+    program.args,
     {
         rootdir: program.rootdir,
         paths: program.path,
