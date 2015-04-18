@@ -6,18 +6,19 @@ var amodroTrace = require('amodro-trace');
 var cjsTransform = require('amodro-trace/read/cjs');
 
 function trace(id, options) {
-    var cwd = process.cwd();
+    var root = options.rootdir;
+    var paths = options.paths;
 
     amodroTrace(
         {
-            rootDir: cwd,
-            id: id,
+            rootDir: root,
+            id: path.relative(root, id),
             readTransform: function(id, url, contents) {
                 return cjsTransform(url, contents);
             }
         },
         {
-            namespace: options.namespace
+            paths: paths
         }
     ).then(function(r) {
         console.log(
@@ -27,8 +28,7 @@ function trace(id, options) {
                 .map(
                     path.relative.bind(
                         path,
-                        cwd))
-                .sort()
+                        root))
                 .value()
                 .join(EOL));
     }).catch(function(error) {

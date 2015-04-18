@@ -5,9 +5,24 @@ var trace = require('..');
 
 program
     .version(require('../package').version)
-    .option('-n, --namespace', 'Namespace')
+    .usage('[options] <file>')
+    .option('-r, --rootdir [dir]', 'rootdir [cwd]', process.cwd())
+    .option('-p, --path [pair]', 'path alias, can be repeated', mergePaths, {})
     .parse(process.argv);
 
 trace(
     program.args[0],
-    { namespace: program.namespace });
+    {
+        rootdir: program.rootdir,
+        paths: program.path
+    });
+
+function mergePaths(pair, paths) {
+    var p = pair.split('=').map(trim);
+    paths[p[0]] = p[1];
+    return paths;
+}
+
+function trim(s) {
+    return s.trim();
+}
